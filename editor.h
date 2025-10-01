@@ -11,3 +11,9 @@ typedef enum _retorno {
     ERROR, 
     NO_IMPLEMENTADA
 } TipoRet;
+
+//funciones
+//creacion
+Archivo CrearArchivo(char * nombre);
+
+TipoRet BorrarArchivo(Archivo &arch);
