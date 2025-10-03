@@ -1,4 +1,4 @@
-#include "editor.h"
+#include "editor.hpp" 
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,7 +71,8 @@ void procesar_insertar(char *args) {
   }
 
   size_t linea_len = linea_end - linea_start;
-  char *linea = malloc(linea_len + 1);
+  char *linea = new char[linea_len + 1];
+
   strncpy(linea, linea_start, linea_len);
   linea[linea_len] = '\0';
 
@@ -81,18 +82,18 @@ void procesar_insertar(char *args) {
 
   if (*pos_str == '\0') {
     printf("ERROR: Debe especificar la posición.\n");
-    free(linea);
+    delete[] linea;
     return;
   }
 
   unsigned int pos = atoi(pos_str);
   if (pos == 0) {
     printf("ERROR: La posición debe ser un número válido mayor que 0.\n");
-    free(linea);
+    delete[] linea;
     return;
   }
 
-  TipoRet resultado = InsertarLinea(&archivo_actual, linea, pos);
+  TipoRet resultado = InsertarLinea(archivo_actual, linea, pos);
 
   if (resultado == OK) {
     printf("Línea insertada en posición %u.\n", pos);
@@ -102,7 +103,7 @@ void procesar_insertar(char *args) {
     printf("ERROR: Función InsertarLinea no implementada.\n");
   }
 
-  free(linea);
+  delete[] linea;
 }
 
 void procesar_borrar(char *args) {
@@ -123,7 +124,7 @@ void procesar_borrar(char *args) {
     return;
   }
 
-  TipoRet resultado = BorrarLinea(&archivo_actual, pos);
+  TipoRet resultado = BorrarLinea(archivo_actual, pos);
 
   if (resultado == OK) {
     printf("Línea en posición %u borrada.\n", pos);
@@ -154,7 +155,7 @@ void procesar_contar() {
   }
 
   unsigned int cantidad = 0;
-  TipoRet resultado = ContarLineas(archivo_actual, &cantidad);
+  TipoRet resultado = ContarLineas(archivo_actual, cantidad);
 
   if (resultado == OK) {
     printf("El archivo tiene %u líneas.\n", cantidad);
@@ -171,13 +172,13 @@ void procesar_borrar_archivo() {
     return;
   }
 
-  TipoRet resultado = BorrarArchivo(&archivo_actual);
+  TipoRet resultado = BorrarArchivo(archivo_actual);
 
   if (resultado == OK) {
     printf("Archivo borrado exitosamente.\n");
   } else {
     printf("ERROR: No se pudo borrar el archivo.\n");
-  }
+  }  
 }
 
 void procesar_comando(char *linea) {
@@ -201,11 +202,12 @@ void procesar_comando(char *linea) {
     comando[i] = tolower(comando[i]);
   }
 
+  static char empty[] = "";
   char *args = strchr(linea, ' ');
   if (args != NULL) {
     args++;
   } else {
-    args = "";
+    args = empty;
   }
 
   if (strncmp(comando, "crear", 5) == 0) {
@@ -233,7 +235,7 @@ void procesar_comando(char *linea) {
              strncmp(comando, "quit", 4) == 0 ||
              strncmp(comando, "q", 1) == 0) {
     if (archivo_actual != NULL) {
-      BorrarArchivo(&archivo_actual);
+      BorrarArchivo(archivo_actual);
     }
     exit(0);
   } else {
@@ -277,7 +279,7 @@ int main(void) {
   }
 
   if (archivo_actual != NULL) {
-    BorrarArchivo(&archivo_actual);
+    BorrarArchivo(archivo_actual);
   }
 
   return 0;
