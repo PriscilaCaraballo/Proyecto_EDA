@@ -1,4 +1,4 @@
-#include "editor.hpp" 
+#include "editor.hpp"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
