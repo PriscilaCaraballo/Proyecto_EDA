@@ -28,6 +28,7 @@ struct _archivo {
 //estructuras
 // typedef  enum _retorno TipoRet;
 typedef struct _archivo* Archivo;
+typedef struct _linea* Linea;
 
 
 //funciones
