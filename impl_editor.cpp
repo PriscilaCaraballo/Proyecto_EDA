@@ -63,10 +63,21 @@ TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
     //caso 2, ponele
     //si ya hay uno, y ponele este es el segundo y va adelante, cachai???
     else if (nroLinea == 1) {
-    nueva->siguiente = arch->primera;
-    arch->primera->anterior = nueva;
-    arch->primera = nueva;
+    nueva->siguiente = arch->primera; //nueva apunta a la primera
+    arch->primera->anterior = nueva; //la primera apunta a la nueva
+    arch->primera = nueva; //ahora la primera es la nueva
     }
+
+    //flow si tenemos A y B y queremos poner C adelante de A
+    // A <-> B
+    //B es arch->primera->siguiente 
+    //C es nueva
+    // C <-> A <-> B
+
+    // A->siguiente = B
+    // B->anterior = A
+    // arch->primera = A
+    // arch->ultima = B
 
     //caso 3, sapeeeeeeeee
     //lo mismo que lo del arriba pero a final
@@ -76,19 +87,21 @@ TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
     arch->ultima->siguiente = nueva;
     arch->ultima = nueva;
     }
+    //lo mismp que arriba pero al final
+
 
     //caso 4
     //y..en el medio
     else {
     struct _linea* actual = arch->primera;
-    for (unsigned int i = 1; i < nroLinea - 1; i++) {
-        actual = actual->siguiente;
+    for (unsigned int i = 1; i < nroLinea - 1; i++) { //me muevo hasta la linea anterior a la que quiero insertar
+        actual = actual->siguiente; 
     }
 
     //parece un pasapalabtra pero el python tutor dice que esta flama
     nueva->siguiente = actual->siguiente;
     nueva->anterior = actual;
-    actual->siguiente->anterior = nueva;
+    actual->siguiente->anterior = nueva; //la linea que estaba despues de actual ahora apunta a nueva
     actual->siguiente = nueva;
     }
 
@@ -97,14 +110,135 @@ TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
 
 }
 
+//tenemos un segmentation fault
+//solucionado, faltaba el else if
 TipoRet BorrarLinea(Archivo arch, unsigned int nroLinea) {
-    return NO_IMPLEMENTADA;
+    //caso
+    // Archivo vacío == error
+    if (arch == NULL) {
+        return ERROR;
+    }
+    // nroLinea inválido == error
+    if (arch->numLineas == 0 || nroLinea < 1 || nroLinea > arch->numLineas) {
+        return ERROR;
+    }
+
+    struct _linea* actual = arch->primera;
+   
+    for (unsigned int i = 1; i < nroLinea; i++) {
+        actual = actual->siguiente;
+    }
+    // Borrar la primera línea
+    if(actual == arch->primera) { 
+        arch->primera = actual->siguiente;
+        if(arch->primera != NULL) {
+            arch->primera->anterior = NULL;
+        } else {
+            arch->ultima = NULL; // Si era la única línea, actualizar última también
+        }
+    } else if (actual == arch->ultima)
+    {
+        arch->ultima = actual->anterior;
+ 
+        //error aqui
+        if(arch->ultima != NULL) {
+            arch->ultima->siguiente = NULL;
+        } else {
+            arch->primera = NULL; // Si era la única línea, actualizar primera también
+        }
+        
+
+    } else { // Borrar una línea del medio
+        //metele que yo tengo A <-> B <-> C
+        //quiero borrar B
+        //actual es B
+        // A es actual->anterior
+        // C es actual->siguiente
+
+
+        //ta ponele hasta ahi, to quiero A <-> C
+        //osea, A->siguiente = C y C->anterior = A
+        actual->anterior->siguiente = actual->siguiente; // A->siguiente = C. "El siguiente del anterior "
+        actual->siguiente->anterior = actual->anterior; // C->anterior = A. "El anterior del siguiente "
+    }
+    free(actual->texto);
+    free(actual);
+    arch->numLineas--;
+    return OK;
 }
 
 TipoRet MostrarTexto(Archivo arch) {
-    return NO_IMPLEMENTADA;
+    if(arch == NULL) return ERROR;
+
+    if(arch->numLineas == 0) {
+        printf("El archivo está vacío.\n");
+        return OK;
+    }
+
+    struct _linea* actual = arch->primera;
+    unsigned int numeroLinea = 1; 
+    while(actual != NULL) {
+        //voy a sacar los espacios que ek diff me da como error
+        //no son espacio al inicio, es tabulacion
+        //como mierd saco la tabulacion 
+        //aparece  q es con: \t
+
+        //habia que poner tabulacion
+        char* tmpText = actual->texto;
+        while (*tmpText == ' ' || *tmpText == '\t' ){ // Eliminar espacios al inicio
+            tmpText++; //PONELE Q ES ARITMETRICA DE PUNTEROS, qsy si hay un espacio me muevo y fue horrible
+        }
+        
+        printf("%u: %s\n", numeroLinea, tmpText);
+        actual = actual->siguiente;
+        numeroLinea++;
+        
+    }
+    return OK;
 }
 
+//=============================
+//    Hay que mejorar esto
+//=============================
 TipoRet ContarLineas(Archivo arch, unsigned int &cantidad) {
-    return NO_IMPLEMENTADA;
+   if(arch == NULL) return ERROR;
+
+    if(arch->numLineas == 0) {
+        printf("Hay 0 cantidad de lineas.\n");
+        return OK;
+    }
+
+    struct _linea* actual = arch->primera;
+    unsigned int numeroLinea = 1; 
+    while(actual != NULL) {
+        printf("%u: %s\n", numeroLinea, actual->texto);
+        actual = actual->siguiente;
+        numeroLinea++;
+    }
+    return OK;
 }
+
+
+//resumen a 6/10 
+//falta borrar linea y borrar archivo
+//cree CrearArchivo e InsertarLinea, MostrarTexto y ContarLineas
+//me falta borrar linea y borrar archivo
+
+//resumen a 7/10
+//hice borrar linea
+//me falta borrar archivo
+
+//=============================
+//     main temporal
+//=============================
+
+//7-10 
+//hice test basico, tengo error de: formato, por que estoy usando espacios en vez de :
+//esperado: 
+// 1: Nombre: Juan Pérez
+// 2: Dirección: Rivera 1234
+// 3: Teléfono: 6111111
+// mio
+//    1 Nombre: Juan Pérez
+//    2 Dirección: Rivera 1234
+//    3 Teléfono: 6111111
