@@ -178,18 +178,9 @@ TipoRet MostrarTexto(Archivo arch) {
     struct _linea* actual = arch->primera;
     unsigned int numeroLinea = 1; 
     while(actual != NULL) {
-        //voy a sacar los espacios que ek diff me da como error
-        //no son espacio al inicio, es tabulacion
-        //como mierd saco la tabulacion 
-        //aparece  q es con: \t
-
-        //habia que poner tabulacion
-        char* tmpText = actual->texto;
-        while (*tmpText == ' ' || *tmpText == '\t' ){ // Eliminar espacios al inicio
-            tmpText++; //PONELE Q ES ARITMETRICA DE PUNTEROS, qsy si hay un espacio me muevo y fue horrible
-        }
         
-        printf("%u: %s\n", numeroLinea, tmpText);
+        
+        printf("\t%u: %s\n", numeroLinea, actual->texto);
         actual = actual->siguiente;
         numeroLinea++;
         

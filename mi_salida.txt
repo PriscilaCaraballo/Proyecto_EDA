@@ -7,10 +7,10 @@ Archivo 'curriculum.txt' creado exitosamente.
 Línea insertada en posición 1.
 Línea insertada en posición 2.
 Línea insertada en posición 3.
-1: Nombre: Juan Pérez
-2: Dirección: Rivera 1234
-3: Teléfono: 6111111
+	1: Nombre: Juan Pérez
+	2: Dirección: Rivera 1234
+	3: Teléfono: 6111111
 Línea en posición 2 borrada.
-1: Nombre: Juan Pérez
-2: Teléfono: 6111111
+	1: Nombre: Juan Pérez
+	2: Teléfono: 6111111
 ERROR: No se pudo borrar el archivo.
