@@ -174,19 +174,23 @@ TipoRet MostrarTexto(Archivo arch) {
         printf("El archivo está vacío.\n");
         return OK;
     }
+    //mostrar el nombre del archivo antes de las lineas (el porfe lo pone asi)
+    printf("%s\n\n", arch->nombre);
+
 
     struct _linea* actual = arch->primera;
     unsigned int numeroLinea = 1; 
     while(actual != NULL) {
         
         
-        printf("\t%u: %s\n", numeroLinea, actual->texto);
+        printf("    %u %s\n", numeroLinea, actual->texto);
         actual = actual->siguiente;
         numeroLinea++;
         
     }
     return OK;
 }
+
 
 //=============================
 //    Hay que mejorar esto
@@ -233,3 +237,4 @@ TipoRet ContarLineas(Archivo arch, unsigned int &cantidad) {
 //    1 Nombre: Juan Pérez
 //    2 Dirección: Rivera 1234
 //    3 Teléfono: 6111111
+
