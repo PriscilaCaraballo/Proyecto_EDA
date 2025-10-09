@@ -29,8 +29,37 @@ Archivo CrearArchivo(char *nombre) {
 }
 
 TipoRet BorrarArchivo(Archivo &arch) {
-    return NO_IMPLEMENTADA;
+    if(arch == NULL){
+        return ERROR;
+    }
+
+    Linea actual = arch->primera;
+    while(actual !=NULL){
+        Linea siguiente = actual->siguiente;
+
+        if(actual->texto !=NULL){
+            free(actual->texto);
+        }
+
+        free(actual);
+        actual = siguiente;
+    }
+
+    if(arch->nombre !=NULL){
+        free(arch->nombre);
+    }
+
+    free(arch);
+    arch = NULL;
+    return OK;
+
 }
+
+
+
+
+
+
 
 TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
     if (arch == NULL)
