@@ -55,12 +55,6 @@ TipoRet BorrarArchivo(Archivo &arch) {
 
 }
 
-
-
-
-
-
-
 TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
     if (arch == NULL)
     {
