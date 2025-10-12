@@ -57,7 +57,7 @@ TipoRet InsertarLinea(Archivo arch, char *linea, unsigned int nroLinea) {
     {
         nuevaLinea->anterior = nuevaLinea->siguiente = NULL;
         arch->primera = arch->ultima = nuevaLinea;
-    } else if(nroLinea == ) {
+    } else if(nroLinea == arch) {
 
     }
     
