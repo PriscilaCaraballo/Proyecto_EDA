@@ -215,24 +215,15 @@ TipoRet MostrarTexto(Archivo arch) {
 }
 
 
-//=============================
-//    Hay que mejorar esto
-//=============================
 TipoRet ContarLineas(Archivo arch, unsigned int &cantidad) {
    if(arch == NULL) return ERROR;
 
     if(arch->numLineas == 0) {
-        printf("Hay 0 cantidad de lineas.\n");
+        cantidad = 0;
         return OK;
     }
 
-    struct _linea* actual = arch->primera;
-    unsigned int numeroLinea = 1; 
-    while(actual != NULL) {
-        printf("%u: %s\n", numeroLinea, actual->texto);
-        actual = actual->siguiente;
-        numeroLinea++;
-    }
+    cantidad = arch->numLineas - 1;
     return OK;
 }
 
@@ -261,3 +252,13 @@ TipoRet ContarLineas(Archivo arch, unsigned int &cantidad) {
 //    2 Dirección: Rivera 1234
 //    3 Teléfono: 6111111
 
+// 15-10
+//termine todo
+ // struct _linea* actual = arch->primera;
+    // unsigned int numeroLinea = 1; 
+    // while(actual != NULL) {
+    //     printf("%u: %s\n", numeroLinea, actual->texto);
+    //     actual = actual->siguiente;
+    //     numeroLinea++;
+    
+    // }
