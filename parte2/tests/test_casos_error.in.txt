@@ -1,0 +1,20 @@
+crear curriculum.txt
+crear_version 1
+crear_version 2
+crear_version 2
+crear_version 2.1
+insertar 1 Linea1 1
+insertar 2 Linea1 1
+insertar 2.1 Linea1 1
+insertar 3 Linea1 1
+insertar 2.2 Linea1 1
+mostrar_texto 1
+mostrar_texto 2
+mostrar_texto 2.1
+mostrar_texto 3
+mostrar_texto 2.2
+comparar 1 2
+comparar 1 3
+comparar 2 2.1
+contar_versiones
+salir

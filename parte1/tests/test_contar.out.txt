@@ -1,6 +1,8 @@
 === EDITOR DE TEXTO SIMPLE ===
 Para ver comandos disponibles, escriba 'ayuda'
+
 Modo batch detectado - ejecutando comandos desde entrada estándar
+
 Archivo 'test_contar.txt' creado exitosamente.
 El archivo tiene 0 líneas.
 Línea insertada en posición 1.

@@ -1,0 +1,13 @@
+=== MANEJADOR DE VERSIONES ===
+Escriba 'ayuda' para ver los comandos disponibles.
+
+Archivo 'curriculum.txt' creado exitosamente.
+Versión '1' creada exitosamente.
+Versión '2' creada exitosamente.
+Línea insertada exitosamente.
+Línea insertada exitosamente.
+Línea insertada exitosamente.
+Línea insertada exitosamente.
+Las versiones 1 y 2 son iguales
+Línea insertada exitosamente.
+Las versiones 1 y 2 son diferentes

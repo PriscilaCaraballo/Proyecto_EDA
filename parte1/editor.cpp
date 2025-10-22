@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
 static Archivo archivo_actual = NULL;
 
 void mostrar_ayuda() {

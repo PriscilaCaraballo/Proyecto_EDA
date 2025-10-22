@@ -1,0 +1,35 @@
+=== MANEJADOR DE VERSIONES ===
+Escriba 'ayuda' para ver los comandos disponibles.
+
+Archivo 'curriculum.txt' creado exitosamente.
+Versión '1' creada exitosamente.
+curriculum.txt
+
+1
+Versión '2' creada exitosamente.
+curriculum.txt
+
+1
+2
+Versión '2.1' creada exitosamente.
+curriculum.txt
+
+1
+2
+2.1
+Versión '2.2' creada exitosamente.
+curriculum.txt
+
+1
+2
+2.1
+2.2
+Versión '2.2.1' creada exitosamente.
+curriculum.txt
+
+1
+2
+2.1
+2.2
+2.2.1
+Total de versiones: 5

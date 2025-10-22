@@ -1,0 +1,28 @@
+=== MANEJADOR DE VERSIONES ===
+Escriba 'ayuda' para ver los comandos disponibles.
+
+Archivo 'curriculum.txt' creado exitosamente.
+Versión '1' creada exitosamente.
+Versión '2' creada exitosamente.
+ERROR: No se pudo crear la versión.
+Versión '2.1' creada exitosamente.
+Línea insertada exitosamente.
+ERROR: No se pudo insertar la línea.
+Línea insertada exitosamente.
+ERROR: No se pudo insertar la línea.
+ERROR: No se pudo insertar la línea.
+curriculum.txt
+
+	1 Linea1
+curriculum.txt
+
+No contiene líneas
+curriculum.txt
+
+	1 Linea1
+ERROR: No se pudo mostrar el texto.
+ERROR: No se pudo mostrar el texto.
+Las versiones 1 y 2 son diferentes
+ERROR: No se pudieron comparar las versiones.
+Las versiones 2 y 2.1 son diferentes
+Total de versiones: 3

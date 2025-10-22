@@ -1,0 +1,13 @@
+crear curriculum.txt
+crear_version 1
+mostrar_versiones
+crear_version 2
+mostrar_versiones
+crear_version 2.1
+mostrar_versiones
+crear_version 2.2
+mostrar_versiones
+crear_version 2.2.1
+mostrar_versiones
+contar_versiones
+salir

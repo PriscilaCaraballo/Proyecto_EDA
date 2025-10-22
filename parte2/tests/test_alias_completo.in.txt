@@ -1,0 +1,15 @@
+crear curriculum.txt
+cv 1
+cv 2
+cv 2.1
+mv
+i 1 Linea1 1
+i 2 Linea2 1
+i 2.1 Linea3 1
+m 1
+m 2
+m 2.1
+c 1 2
+bv 2
+mv
+q
