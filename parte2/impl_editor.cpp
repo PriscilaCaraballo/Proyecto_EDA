@@ -5,6 +5,147 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <string.h>
+
+//Funciones Auxiliares 
+// Buscar Version
+Version BuscarVersion(Version raiz, const char *nombre) {
+    if (raiz == NULL)
+        return NULL;
+
+    if (strcmp(raiz->nombreVersion, nombre) == 0)
+        return raiz;
+
+    Version encontrada = BuscarVersion(raiz->subversiones, nombre);
+    if (encontrada != NULL)
+        return encontrada;
+
+    return BuscarVersion(raiz->siguienteHermano, nombre);
+}
+
+// Liberar memoria para todas las versiones
+void LiberarVersiones(Version v) {
+    if (!v) return;
+
+    LiberarVersiones(v->subversiones);
+    LiberarVersiones(v->siguienteHermano);
+    LiberarLineasRecursivo(v->primera);
+    free(v->nombreVersion);
+    free(v);
+}
+
+//Nueva funcion recursiva para liberar lineas
+void LiberarLineasRecursivo (_linea *l){
+    if(!l) return;
+    LiberarLineasRecursivo(l->siguiente); 
+    free(l->texto);
+    free(l);
+}
+
+//  Mostrar árbol de versiones 
+void MostrarVersionesRec(Version v, int nivel) {
+    if (!v) return;
+
+    for (int i = 0; i < nivel; i++)
+        printf("  ");
+
+    printf("└─ %s\n", v->nombreVersion);
+
+    MostrarVersionesRec(v->subversiones, nivel + 1);
+    MostrarVersionesRec(v->siguienteHermano, nivel);
+}
+
+//  Contar versiones en todo el árbol esta funcion es OPCIONAL
+int ContarVersionesRec(Version v) {
+    if (!v) return 0;
+    return 1 + ContarVersionesRec(v->subversiones) + ContarVersionesRec(v->siguienteHermano);
+}
+
+
+
+/*------------------------------------------------------------------
+               FUNCIONES PRINCIPALES
+--------------------------------------------------------------------*/
+
+//  Crear archivo
+Archivo CrearArchivo(char *nombre) {
+    Archivo nuevo = (Archivo) malloc(sizeof(struct _archivo));
+    if (!nuevo) return NULL;
+    nuevo->nombre = (char *) malloc(strlen(nombre) + 1);
+    if (!nuevo->nombre)
+    {
+        free(nuevo);
+        return NULL;
+    }
+
+    strcpy(nuevo->nombre, nombre);
+    nuevo->raizVersiones = NULL;
+    return nuevo;
+}
+
+//  Borrar archivo completo (usa recursividad)
+TipoRet BorrarArchivo(Archivo &arch) {
+    if (!arch) return ERROR;
+
+    LiberarVersiones(arch->raizVersiones);
+    free(arch->nombre);
+    free(arch);
+    arch = NULL;
+    return OK;
+}
+
+//  Mostrar versiones (usa recursividad)
+TipoRet MostrarVersiones(Archivo arch) {
+    if (!arch || !arch->raizVersiones) return ERROR;
+    printf("\n Árbol de versiones:\n");
+    MostrarVersionesRec(arch->raizVersiones, 0);
+    return OK;
+}
+
+//  Contar versiones (usa recursividad)
+TipoRet ContarVersiones(Archivo arch, int &cantidad) {
+    if (!arch || !arch->raizVersiones) return ERROR;
+    cantidad = ContarVersionesRec(arch->raizVersiones);
+    return OK;
+}
+
+//  Crear versión (recursivo)
+TipoRet CrearVersion(Archivo &arch, char *versionPadre, char *nuevaVersion) {
+    if (!arch || !nuevaVersion) return ERROR;
+
+    // Caso raíz
+    if (arch->raizVersiones == NULL) {
+        Version raiz = (Version) malloc(sizeof(struct _version));
+        if (!raiz) return ERROR;
+    
+
+    raiz->nombreVersion = (char*)malloc(strlen(nuevaVersion) + 1);
+    strcpy(raiz->nombreVersion, nuevaVersion);
+    raiz->subversiones = raiz->siguienteHermano = NULL;
+    raiz->primera = raiz->ultima = NULL;
+    raiz->numLineas = 0;
+
+    arch->raizVersiones = raiz; 
+    return OK;
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Archivo CrearArchivo(char *nombre) {

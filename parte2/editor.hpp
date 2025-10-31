@@ -49,6 +49,7 @@ TipoRet BorrarVersion(Archivo &arch, char * version);
 TipoRet MostrarVersiones(Archivo arch);
 TipoRet Iguales(Archivo arch, char * version1, char * version2, bool &iguales);
 TipoRet ContarVersiones(Archivo arch, int &cantidad);
-
+void LiberarLineasRecursivo (_linea l);
+void LiberarVersiones(Version v);
 #endif // EDITOR_HPP
 
