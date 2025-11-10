@@ -1,9 +1,11 @@
-#include "editor.h"
+#include "editor.hpp"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 
 static Archivo archivo_actual = NULL;
 
